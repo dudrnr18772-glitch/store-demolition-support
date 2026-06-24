@@ -1,0 +1,25 @@
+{
+  "name": "demolition-seo-homepage",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run sync:pages && next dev",
+    "sync:pages": "node scripts/sync-pages.mjs",
+    "build": "npm run sync:pages && next build",
+    "start": "next start",
+    "check:content": "npm run sync:pages && tsx scripts/check-content.mjs",
+    "check:similarity": "npm run check:content"
+  },
+  "dependencies": {
+    "next": "^16.2.9",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tsx": "^4.22.4",
+    "typescript": "^5"
+  }
+}
