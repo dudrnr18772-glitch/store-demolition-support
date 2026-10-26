@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getAllPages, getInternalLinksForPage, getPageBySlug } from "../../lib/pages";
 import { getDetailContent, getFaqJsonLd } from "../../lib/detail-content";
 import { CONSULT_FORM_URL, SITE_URL } from "../../lib/site";
+import { getPilotPage } from "../../lib/pilot-pages";
+import { PilotArticle } from "../../components/PilotArticle";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -25,32 +27,33 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const pageUrl = `${SITE_URL}/${page.slug}/`;
+  const pilot = getPilotPage(slug);
 
   return {
     title: {
-      absolute: page.title,
+      absolute: pilot?.title ?? page.title,
     },
-    description: page.description,
+    description: pilot?.description ?? page.description,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
-      title: page.title,
-      description: page.description,
+      title: pilot?.title ?? page.title,
+      description: pilot?.description ?? page.description,
       url: pageUrl,
       images: [
         {
           url: "/thumbnail.jpg",
           width: 1254,
           height: 1254,
-          alt: page.H1,
+          alt: pilot?.h1 ?? page.H1,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: page.title,
-      description: page.description,
+      title: pilot?.title ?? page.title,
+      description: pilot?.description ?? page.description,
       images: ["/thumbnail.jpg"],
     },
   };
@@ -62,6 +65,11 @@ export default async function DetailPage({ params }: PageProps) {
 
   if (!page) {
     notFound();
+  }
+
+  const pilot = getPilotPage(slug);
+  if (pilot) {
+    return <PilotArticle pilot={pilot} />;
   }
 
   const detail = getDetailContent(page);
