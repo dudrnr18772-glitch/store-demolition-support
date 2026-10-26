@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllPages } from "../lib/pages";
 import { SITE_URL } from "../lib/site";
+import { getPilotPage } from "../lib/pilot-pages";
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -14,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const detailPages = getAllPages().map((page) => ({
     url: `${SITE_URL}/${page.slug}/`,
+    ...(getPilotPage(page.slug) ? { lastModified: getPilotPage(page.slug)!.updatedAt } : {}),
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
