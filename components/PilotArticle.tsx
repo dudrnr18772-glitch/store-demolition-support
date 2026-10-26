@@ -74,7 +74,13 @@ export function PilotArticle({ pilot }: Props) {
           </div>
         </div>
       </section>
-
+ <section className="detail-section">
+        <div className="detail-shell">
+          <figure className="landing-image-wrap">
+            <img src="/landing.webp" alt="점포 철거와 원상복구 민간 견적 상담 안내 이미지" className="landing-image" loading="lazy" />
+          </figure>
+        </div>
+      </section>
       {pilot.sections.map((section, index) => (
         <section className="detail-section" key={`${pilot.slug}-${index}`} aria-labelledby={`pilot-section-${index}`}>
           <div className="detail-section-header">
@@ -122,13 +128,7 @@ export function PilotArticle({ pilot }: Props) {
         </section>
       )}
 
-      <section className="detail-section">
-        <div className="detail-shell">
-          <figure className="landing-image-wrap">
-            <img src="/landing.webp" alt="점포 철거와 원상복구 민간 견적 상담 안내 이미지" className="landing-image" loading="lazy" />
-          </figure>
-        </div>
-      </section>
+     
 
       <section className="detail-final-cta" id="detail-consult" aria-labelledby="pilot-cta">
         <div className="detail-final-inner">
